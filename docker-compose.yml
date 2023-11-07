@@ -3,19 +3,25 @@ version: "3.7"
 services:
   # Reverse proxy
   traefik:
-    image: "traefik:v2.8"
+    image: "traefik:latest"
     command:
+      - "--log.level=DEBUG"
       - "--api.insecure=true"  # allows accessing a Traefik dashboard, disable in production
       - "--providers.docker=true"  # enables the Docker configuration discovery
       - "--providers.docker.exposedbydefault=false"  # do not expose Docker services by default
       - "--entrypoints.web.address=:5000"  # create an entrypoint called web, listening on :5000
-      - "--entrypoints.admin.address=:3333"  # create an entrypoint called web, listening on :5000
+      - "--entrypoints.admin.address=:3333"  # create an entrypoint called admin, listening on :3333
+      - "traefik.log=true"
     ports:
       - "5000:5000"
       - "3333:3333"
       - "8765:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      # enable logging
+      - "traefik.log=true"
+
 
   # Prisma sqlite migration utility 
   migrate:
@@ -36,7 +42,7 @@ services:
       - sqlite:/database/
     environment:
       - DATABASE_URL=file:/database/db.sqlite
-      - FRONTEND_URL=http://localhost:5000
+      - FRONTEND_URL=https://go.derekr.xyz
       - CLEANUP_INTERVAL_SECONDS=600
       - NODE_ENV=production
       # Rate limit for uploading notes
@@ -52,7 +58,7 @@ services:
     labels:
       - "traefik.enable=true"  # tell Traefik this is something we would like to expose
       - "traefik.http.routers.backend.entrypoints=web"  # what entrypoint should be used for the backend service.
-      - "traefik.http.routers.backend.rule=Host(`localhost`) && PathPrefix(`/api`) && (Method(`POST`) || Method(`DELETE`))"  # 
+      - "traefik.http.routers.backend.rule=Host(`go.derekr.xyz`) && PathPrefix(`/api`) && (Method(`POST`) || Method(`DELETE`))"  # 
 
   # Frontend for serving encrypted notes over HTML (SvelteKit)
   frontend:
@@ -61,7 +67,7 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_SERVER_INTERNAL=http://backend:8080
-        - VITE_BRANDING=Noteshare.space [preview]
+        - VITE_BRANDING=go.derekr.xyz
     environment:
         - NODE_ENV=production
     depends_on:
@@ -70,11 +76,11 @@ services:
     labels:
       - "traefik.enable=true"  # tell Traefik this is something we would like to expose
       - "traefik.http.routers.frontend.entrypoints=web"  # what entrypoint should be used for the frontend service.
-      - "traefik.http.routers.frontend.rule=Host(`localhost`)"  # 
+      - "traefik.http.routers.frontend.rule=Host(`go.derekr.xyz`)"  # 
 
   # grafana dashboard
   grafana:
-    image: grafana/grafana:9.1.0
+    image: grafana/grafana:latest
     restart: unless-stopped
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
@@ -85,7 +91,7 @@ services:
     labels:
     - "traefik.enable=true"  # tell Traefik this is something we would like to expose
     - "traefik.http.routers.grafana.entrypoints=admin"  # what entrypoint should be used for the frontend service.
-    - "traefik.http.routers.grafana.rule=Host(`localhost`)"  # 
+    - "traefik.http.routers.grafana.rule=Host(`go.derekr.xyz`)"  # 
 
 volumes:
   sqlite:

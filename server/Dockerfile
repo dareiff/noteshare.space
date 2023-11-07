@@ -1,8 +1,8 @@
-FROM node:16-alpine AS BUILD_IMAGE
-
+FROM node:18-bookworm AS BUILD_IMAGE
 
 # install dependencies
 WORKDIR /app
+RUN apt update && apt install -y openssl
 COPY package.json package-lock.json ./
 RUN npm ci
 
@@ -16,7 +16,7 @@ RUN npm run build
 # remove development dependencies
 RUN npm prune --production
 
-FROM node:16-alpine
+FROM node:18-bookworm
 
 WORKDIR /app
 COPY --from=0 /app .
