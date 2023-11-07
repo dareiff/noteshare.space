@@ -6,15 +6,15 @@ ARG VITE_BRANDING $VITE_BRANDING
 # install dependencies
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --force
 
 # Copy all local files into the image.
 COPY . .
 
 RUN npm run build
 
-# remove development dependencies
-RUN npm prune --production
+# # remove development dependencies
+# RUN npm prune --production
 
 FROM node:18-alpine
 

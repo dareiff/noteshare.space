@@ -1,11 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 
-	import Footer from '$lib/components/Footer.svelte';
 	import NavBar from '$lib/components/navbar/NavBar.svelte';
-	import NavBarLink from '$lib/components/navbar/NavBarLink.svelte';
-	import ThemeToggle from '$lib/components/navbar/ThemeToggle.svelte';
-	import LogoGithub from 'svelte-icons/io/IoLogoGithub.svelte';
 	import '../app.css';
 
 	let dark: boolean;
@@ -29,42 +25,23 @@
 </script>
 
 <svelte:head>
-	<title>{import.meta.env.VITE_BRANDING} — Securely share your Obsidian notes with one click.</title
+	<title>{import.meta.env.VITE_BRANDING} — A shared note.</title
 	>
 	<meta
 		name="title"
-		content="Noteshare.space — Securely share your Obsidian notes with one click."
+		content="Shared note."
 	/>
-	<meta
-		name="description"
-		content="Securely share your Obsidian notes with one click. Zero configuration. End-to-end encrypted. No account needed. Completely open source! Download the QuickShare extension in the Obsidian community plugin marketplace."
-	/>
-
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://noteshare.space/" />
+	<meta property="og:url" content="https://go.derekr.xyz/" />
 	<meta
 		property="og:title"
-		content="Noteshare.space — Securely share your Obsidian notes with one click."
+		content="A shared note.."
 	/>
 	<meta
 		property="og:description"
-		content="Securely share your Obsidian notes with one click. Zero configuration. End-to-end encrypted. No account needed. Completely open source! Download the QuickShare extension in the Obsidian community plugin marketplace."
+		content="A shared note from Derek."
 	/>
-	<meta property="og:image" content="https://noteshare.space/meta.png" />
-
-	<!-- Twitter -->
-	<meta property="twitter:card" content="summary_large_image" />
-	<meta property="twitter:url" content="https://noteshare.space/" />
-	<meta
-		property="twitter:title"
-		content="Noteshare.space — Securely share your Obsidian notes with one click."
-	/>
-	<meta
-		property="twitter:description"
-		content="Securely share your Obsidian notes with one click. Zero configuration. End-to-end encrypted. No account needed. Completely open source! Download the QuickShare extension in the Obsidian community plugin marketplace."
-	/>
-	<meta property="twitter:image" content="https://noteshare.space/meta.png" />
 </svelte:head>
 
 <div class=" h-full {dark !== undefined ? '' : 'hidden'} {dark ? darkTheme : ''}">

@@ -13,8 +13,8 @@ RUN npx prisma generate
 
 RUN npm run build
 
-# remove development dependencies
-RUN npm prune --production
+# # remove development dependencies
+# RUN npm prune --production
 
 FROM node:18-bookworm
 
