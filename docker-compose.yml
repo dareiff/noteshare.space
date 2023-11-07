@@ -1,20 +1,6 @@
 version: "3.7"
 
 services:
-  # Reverse proxy
-  caddy:
-    image: caddy:2.4.5-alpine
-    restart: unless-stopped
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy_data:/data
-      - ./caddy_config:/config
-    labels:
-      - "traefik.enable=false"  # tell Traefik this is something we would like to expose
-
   # Prisma sqlite migration utility 
   migrate:
     build:
