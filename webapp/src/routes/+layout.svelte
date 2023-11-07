@@ -72,37 +72,13 @@
 		<div class="z-50 sticky top-0 w-full bg-white dark:bg-background-dark transition-colors">
 			<div class="top-0 left-0 right-0">
 				<NavBar>
-					<svelte:fragment slot="left">
-						<NavBarLink href="/about">About</NavBarLink>
-						<NavBarLink href="/install">Get plugin</NavBarLink>
-						<NavBarLink href="/contact">Contact</NavBarLink>
-					</svelte:fragment>
-					<svelte:fragment slot="right">
-						<NavBarLink href="https://obsidian.md"
-							><span class="text-[#705dcf] font-bold">Get Obsidian</span></NavBarLink
-						>
-						<NavBarLink href="https://github.com/mcndt/noteshare.space">
-							<span class="flex gap-2 items-center justify-center">
-								<span class="text-black dark:text-zinc-200 md:hidden whitespace-nowrap">GitHub</span
-								>
-								<span
-									class="inline-block h-6 w-6 text-black dark:text-zinc-200 md:dark:text-zinc-300"
-									><LogoGithub /></span
-								>
-							</span>
-						</NavBarLink>
-						<ThemeToggle bind:dark />
-					</svelte:fragment>
-					></NavBar
+					</NavBar
 				>
 			</div>
 		</div>
 
 		<div class="container mx-auto max-w-4xl mx-auto mt-6 md:mt-12 px-4 2xl:px-0 ">
 			<slot />
-			<div class="mt-12">
-				<Footer />
-			</div>
 		</div>
 	</div>
 </div>

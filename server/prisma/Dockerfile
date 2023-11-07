@@ -16,7 +16,7 @@
 
 # CMD ["npx", "prisma migrate deploy
 
-FROM node:16-alpine
+FROM node:18-bookworm
 RUN echo $DATABASE_URL
 
 # Create app directory
@@ -24,8 +24,10 @@ WORKDIR /app
 
 # Install prisma for the migration
 RUN npm install -g prisma --unsafe-perm
+RUN apt update && apt install -y openssl
 
 # Copy schema and migration folder
 ADD ./ ./prisma/
+
 
 CMD [ "prisma", "migrate", "deploy"]
