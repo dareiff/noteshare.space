@@ -19,13 +19,11 @@
 		<p class="prose-xl">The note at this link has been deleted by the user who shared it. Sorry!</p>
 	{:else}
 		<h1>Something went wrong 🤔</h1>
-		<p class="prose-xl">
-			{#if import.meta.env.DEV}
-				<pre class="prose-xl">{JSON.stringify($page.error, null, 2)}</pre>
-			{:else}
-				<p class="prose-xl">An error occurred while loading this page. Please try again later.</p>
-			{/if}
-		</p>
+		{#if import.meta.env.DEV}
+			<pre class="prose-xl">{JSON.stringify($page.error, null, 2)}</pre>
+		{:else}
+			<p class="prose-xl">An error occurred while loading this page. Please try again later.</p>
+		{/if}
 	{/if}
 
 	<div class="not-prose w-full flex justify-center mt-16">
