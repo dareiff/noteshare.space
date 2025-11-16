@@ -18,7 +18,6 @@
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^6.19.0",
-    "bloom-filters": "^3.0.4",
     "body-parser": "^2.2.0",
     "class-validator": "^0.14.2",
     "crc": "^4.3.2",

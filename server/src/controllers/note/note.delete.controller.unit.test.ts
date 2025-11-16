@@ -3,12 +3,10 @@ import express from "express";
 import supertest from "supertest";
 import { vi, describe, it, beforeEach, afterEach, expect } from "vitest";
 import * as noteDao from "../../db/note.dao";
-import * as bloomFilter from "../../db/bloomFilter.dao";
 import EventLogger from "../../logging/EventLogger";
 import { deleteNoteController } from "./note.delete.controller";
 
 vi.mock("../../db/note.dao");
-vi.mock("../../db/bloomFilter.dao");
 vi.mock("../../logging/EventLogger");
 
 const VALID_USER_ID = "f06536e7df6857fc";
@@ -19,7 +17,6 @@ const MOCK_NOTE_ID = "NOTE_ID";
 describe("note.delete.controller", () => {
   let mockNoteDao = vi.mocked(noteDao);
   let mockEventLogger = vi.mocked(EventLogger);
-  let mockBloomFilterDao = vi.mocked(bloomFilter);
 
   const test_app = express()
     .use(express.json())
@@ -44,10 +41,6 @@ describe("note.delete.controller", () => {
         throw new Error("Note not found");
       }
     });
-
-    mockBloomFilterDao.getFilter.mockImplementation(async () => {
-      throw new Error("No BloomFilter found");
-    });
   });
 
   afterEach(() => {
@@ -66,7 +59,7 @@ describe("note.delete.controller", () => {
         note_id: MOCK_NOTE_ID,
         user_id: VALID_USER_ID,
         success: true,
-      })
+      }),
     );
   });
 
@@ -81,7 +74,7 @@ describe("note.delete.controller", () => {
       expect.objectContaining({
         user_id: VALID_USER_ID,
         success: false,
-      })
+      }),
     );
   });
 
@@ -96,7 +89,7 @@ describe("note.delete.controller", () => {
       expect.objectContaining({
         user_id: VALID_USER_ID,
         success: false,
-      })
+      }),
     );
   });
 });

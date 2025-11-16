@@ -14,7 +14,7 @@ export function getConnectingIp(req: Request): string {
 }
 
 export function getNoteSize(
-  note: Pick<EncryptedNote, "ciphertext" | "hmac" | "iv">
+  note: Pick<EncryptedNote, "ciphertext" | "hmac" | "iv">,
 ) {
   return (
     note.ciphertext.length + (note.hmac?.length ?? 0) + (note.iv?.length ?? 0)

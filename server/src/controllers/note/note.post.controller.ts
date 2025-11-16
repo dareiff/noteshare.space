@@ -15,7 +15,7 @@ import checkId from "../../lib/checkUserId";
 export async function postNoteController(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> {
   const event: WriteEvent = {
     success: false,

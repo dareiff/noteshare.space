@@ -3,7 +3,6 @@
 	import SummaryIcon from 'svelte-icons/md/MdFormatListBulleted.svelte';
 	import InfoIcon from 'svelte-icons/md/MdInfoOutline.svelte';
 	import TodoIcon from 'svelte-icons/md/MdPlaylistAddCheck.svelte';
-	// import HintIcon from 'svelte-icons/md/MdLightbulbOutline.svelte';
 	import HintIcon from 'svelte-icons/md/MdWhatshot.svelte';
 	import CheckIcon from 'svelte-icons/md/MdCheck.svelte';
 	import QuestionIcon from 'svelte-icons/md/MdHelpOutline.svelte';

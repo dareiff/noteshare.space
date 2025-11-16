@@ -34,8 +34,3 @@ model event {
   user_id             String?
   user_plugin_version String?
 }
-
-model BloomFilter {
-  name             String @id
-  serializedFilter Bytes
-}

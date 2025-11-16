@@ -1,5 +1,4 @@
 import { deleteNotes, getExpiredNotes } from "../db/note.dao";
-import { getNoteFilter } from "../lib/expiredNoteFilter";
 import EventLogger from "../logging/EventLogger";
 import logger from "../logging/logger";
 import { getNoteSize } from "../util";
@@ -13,8 +12,8 @@ export async function deleteExpiredNotes(): Promise<number> {
       const logs = toDelete.map(async (note) => {
         logger.info(
           `[Cleanup] Deleted note ${note.id} with size ${getNoteSize(
-            note
-          )} bytes`
+            note,
+          )} bytes`,
         );
         return EventLogger.purgeEvent({
           success: true,
@@ -23,8 +22,6 @@ export async function deleteExpiredNotes(): Promise<number> {
         });
       });
       await Promise.all(logs);
-      const filter = await getNoteFilter("expiredNotes");
-      await filter.addNoteIds(toDelete.map((n) => n.id));
       logger.info(`[Cleanup] Deleted ${deleteCount} expired notes.`);
       return deleteCount;
     })

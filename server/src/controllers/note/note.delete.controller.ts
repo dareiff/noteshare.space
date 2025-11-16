@@ -2,7 +2,6 @@ import { validateOrReject, ValidationError } from "class-validator";
 import { NextFunction, Request, Response } from "express";
 import { deleteNote, getNote } from "../../db/note.dao";
 import checkId from "../../lib/checkUserId";
-import { getNoteFilter } from "../../lib/expiredNoteFilter";
 import EventLogger, { WriteEvent } from "../../logging/EventLogger";
 import { getConnectingIp, getNoteSize } from "../../util";
 import { NoteDeleteRequest } from "../../validation/Request";
@@ -10,7 +9,7 @@ import { NoteDeleteRequest } from "../../validation/Request";
 export async function deleteNoteController(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> {
   const event: WriteEvent = {
     success: false,
@@ -71,7 +70,4 @@ export async function deleteNoteController(
     await EventLogger.deleteEvent(event);
     next(err);
   }
-
-  const filter = await getNoteFilter("deletedNotes");
-  await filter.addNoteIds([note.id]);
 }

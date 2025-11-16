@@ -39,7 +39,7 @@ describe("GET /api/note", () => {
     expect(readEvents.length).toBe(1);
     expect(readEvents[0].success).toBe(true);
     expect(readEvents[0].size_bytes).toBe(
-      res.body.ciphertext.length + res.body.hmac.length
+      res.body.ciphertext.length + res.body.hmac.length,
     );
   });
 
@@ -98,7 +98,7 @@ describe("POST /api/note", () => {
 
     // A future expiry date is assigned
     expect(new Date(res.body.expire_time).getTime()).toBeGreaterThan(
-      new Date().getTime()
+      new Date().getTime(),
     );
 
     // Is a write event logged?
@@ -109,7 +109,7 @@ describe("POST /api/note", () => {
     expect(writeEvents[0].success).toBe(true);
     expect(writeEvents[0].expire_window_days).toBe(30);
     expect(writeEvents[0].size_bytes).toBe(
-      testNote.ciphertext.length + testNote.hmac.length
+      testNote.ciphertext.length + testNote.hmac.length,
     );
   });
 
@@ -169,7 +169,7 @@ describe("POST /api/note", () => {
 
     // No other response codes should be present
     expect(
-      responseCodes.map((code) => code === 429 || code === 200)
+      responseCodes.map((code) => code === 429 || code === 200),
     ).not.toContain(false);
 
     // sleep for 100 ms to allow rate limiter to reset
@@ -179,6 +179,9 @@ describe("POST /api/note", () => {
 
 describe("Clean expired notes", () => {
   it("removes expired notes", async () => {
+    // Wait for rate limiter to reset from previous tests
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     // insert a note with expiry date in the past using prisma
     const { id } = await prisma.encryptedNote.create({
       data: {
@@ -195,9 +198,9 @@ describe("Clean expired notes", () => {
     const nDeleted = await deleteExpiredNotes();
     expect(nDeleted).toBeGreaterThan(0);
 
-    // if the note is added to the expire filter, it returns 410
+    // after cleanup, the note should return 404 (not found)
     res = await supertest(app).get(`/api/note/${id}`);
-    expect(res.statusCode).toBe(410);
+    expect(res.statusCode).toBe(404);
 
     // sleep 100ms to allow all events to be logged
     await new Promise((resolve) => setTimeout(resolve, 200));
@@ -209,7 +212,7 @@ describe("Clean expired notes", () => {
     expect(deleteEvents.length).toBe(1);
     expect(deleteEvents[0].success).toBe(true);
     expect(deleteEvents[0].size_bytes).toBe(
-      testNote.ciphertext.length + testNote.hmac.length
+      testNote.ciphertext.length + testNote.hmac.length,
     );
   });
 });

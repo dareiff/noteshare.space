@@ -3,16 +3,9 @@ import { deleteExpiredNotes } from "./deleteExpiredNotes";
 import * as noteDao from "../db/note.dao";
 import EventLogger from "../logging/EventLogger";
 import logger from "../logging/logger";
-import * as filter from "../lib/expiredNoteFilter";
 
 vi.mock("../db/note.dao");
 vi.mock("../logging/EventLogger");
-vi.mock("../lib/expiredNoteFilter", () => {
-  const instance = {
-    addNoteIds: vi.fn(),
-  };
-  return { getNoteFilter: (name: string) => instance };
-});
 
 vi.spyOn(logger, "error");
 
@@ -38,16 +31,11 @@ describe("deleteExpiredNotes", () => {
     ]);
     mockedDao.deleteNotes.mockResolvedValue(1);
 
-    // mock ExpiredNoteFilter
-    const mockedFilter = vi.mocked(await filter.getNoteFilter("expiredNotes"));
-    mockedFilter.addNoteIds.mockResolvedValue();
-
     // test task call
     await deleteExpiredNotes();
     expect(mockedDao.getExpiredNotes).toHaveBeenCalledOnce();
     expect(mockedDao.deleteNotes).toHaveBeenCalledWith(["test"]);
     expect(logger.error).not.toHaveBeenCalled();
     expect(vi.mocked(EventLogger).purgeEvent).toHaveBeenCalledOnce();
-    expect(mockedFilter.addNoteIds).toHaveBeenCalledWith(["test"]);
   });
 });

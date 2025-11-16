@@ -181,7 +181,7 @@ describe("note.post.controller", () => {
       // validate_expire_time
       expect(res.body).toHaveProperty("expire_time");
       expect(new Date(res.body.expire_time).getTime()).toBeGreaterThan(
-        new Date().getTime()
+        new Date().getTime(),
       );
     }
 
@@ -194,7 +194,7 @@ describe("note.post.controller", () => {
           hmac: payload.hmac,
           crypto_version: payload.crypto_version || "v1",
           expire_time: expect.any(Date),
-        })
+        }),
       );
     }
 
@@ -210,7 +210,7 @@ describe("note.post.controller", () => {
           expire_window_days: expect.any(Number),
           user_id: params.payload.user_id,
           user_plugin_version: params.payload.plugin_version,
-        })
+        }),
       );
     } else {
       expect(mockEventLogger.writeEvent).toHaveBeenCalledWith(
@@ -220,7 +220,7 @@ describe("note.post.controller", () => {
           error: expect.any(String),
           user_id: params.payload.user_id,
           user_plugin_version: params.payload.plugin_version,
-        })
+        }),
       );
     }
   });
@@ -252,7 +252,7 @@ describe("note.post.controller", () => {
         error: "Error: Database write failed",
         user_id: payload.user_id,
         user_plugin_version: payload.plugin_version,
-      })
+      }),
     );
   });
 });

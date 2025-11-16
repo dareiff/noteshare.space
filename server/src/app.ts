@@ -16,7 +16,7 @@ app.use(express.json({}));
 app.use(
   pinoHttp({
     logger: logger,
-  })
+  }),
 );
 
 // configure Helmet and CORS
@@ -25,7 +25,7 @@ app.use(
     crossOriginResourcePolicy: {
       policy: process.env.ENVIRONMENT == "dev" ? "cross-origin" : "same-origin",
     },
-  })
+  }),
 );
 
 // Mount routes

@@ -37,7 +37,7 @@ const testCases = [
 	}
 ];
 
-describe.each(testCases)('Rendering callouts', async (testCase: typeof testCases[0]) => {
+describe.each(testCases)('Rendering callouts', async (testCase: (typeof testCases)[0]) => {
 	it('Renders callout title correctly ', async () => {
 		render(MarkdownRenderer, { plaintext: testCase.markdown, fileTitle: undefined });
 		const titleEl = await screen.findByText(testCase.title);
