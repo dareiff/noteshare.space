@@ -1,10 +1,11 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { plugin as markdown } from 'vite-plugin-markdown';
+import { defineConfig } from 'vitest/config';
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
 	plugins: [
 		sveltekit(),
+		// @ts-ignore - vite-plugin-markdown type issues
 		markdown({ mode: ['html'] })
 	],
 	optimizeDeps: {
@@ -15,6 +16,4 @@ const config = {
 		environment: 'happy-dom',
 		setupFiles: ['setupTest.js']
 	}
-};
-
-export default config;
+});

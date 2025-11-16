@@ -1,6 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background-dark: #18181b;
+  --color-callout: rgb(var(--callout-color));
+  --color-callout-bg: rgba(var(--callout-color), 0.1);
+}
+
+@variant dark (&:where(.dark, .dark *));
 
 :root {
     --callout-note: 68, 138, 255;

@@ -11,5 +11,6 @@
 		"strict": true,
 		"types": ["vitest/globals", "@testing-library/jest-dom"],
 		"typeRoots": ["./node_modules/@types", "./src/types"]
-	}
+	},
+	"exclude": ["**/*.test.ts", "src/test/**/*"]
 }

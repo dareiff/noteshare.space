@@ -111,5 +111,5 @@ function _getSignKey(secret: ArrayBuffer): Promise<CryptoKey> {
 }
 
 function base64ToArrayBuffer(base64: string): ArrayBuffer {
-	return Uint8Array.from(window.atob(base64), (c) => c.charCodeAt(0));
+	return Uint8Array.from(window.atob(base64), (c) => c.charCodeAt(0)).buffer;
 }

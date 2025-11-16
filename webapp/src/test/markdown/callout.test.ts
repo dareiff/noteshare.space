@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/svelte';
 import MarkdownRenderer from '$lib/components/MarkdownRenderer.svelte';
 
@@ -36,9 +37,9 @@ const testCases = [
 	}
 ];
 
-describe.each(testCases)('Rendering callouts', async (testCase) => {
+describe.each(testCases)('Rendering callouts', async (testCase: typeof testCases[0]) => {
 	it('Renders callout title correctly ', async () => {
-		render(MarkdownRenderer, { plaintext: testCase.markdown });
+		render(MarkdownRenderer, { plaintext: testCase.markdown, fileTitle: undefined });
 		const titleEl = await screen.findByText(testCase.title);
 		expect(titleEl).toBeInTheDocument();
 		expect(titleEl).toHaveClass('callout-title');
@@ -46,7 +47,7 @@ describe.each(testCases)('Rendering callouts', async (testCase) => {
 
 	// TODO: this test is broken. Need to fix it.
 	it.skip('Renders callout content correctly ', async () => {
-		render(MarkdownRenderer, { plaintext: testCase.markdown });
+		render(MarkdownRenderer, { plaintext: testCase.markdown, fileTitle: undefined });
 		const contentEl = await screen.findByText(testCase.content);
 		// const contentEl = await screen.findByText(testCase.content);
 		expect(contentEl).toBeInTheDocument();

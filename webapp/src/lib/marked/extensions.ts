@@ -1,6 +1,6 @@
 const InternalLinkExtension = {
 	name: 'internal-link',
-	level: 'inline',
+	level: 'inline' as const,
 	start(src: string) {
 		return src.match(/^\[\[/)?.index;
 	},
@@ -19,7 +19,7 @@ const InternalLinkExtension = {
 
 const InternalEmbedExtension = {
 	name: 'internal-embed',
-	level: 'inline',
+	level: 'inline' as const,
 	start(src: string) {
 		return src.match(/^!\[\[/)?.index;
 	},
@@ -38,7 +38,7 @@ const InternalEmbedExtension = {
 
 const TagExtension = {
 	name: 'tag',
-	level: 'inline',
+	level: 'inline' as const,
 	start(src: string) {
 		return src.match(/#/)?.index;
 	},
@@ -57,7 +57,7 @@ const TagExtension = {
 
 const HighlightExtension = {
 	name: 'highlight',
-	level: 'inline',
+	level: 'inline' as const,
 	start(src: string) {
 		return src.match(/==/)?.index;
 	},
@@ -79,7 +79,7 @@ const HighlightExtension = {
 
 const MathInline = {
 	name: 'math-inline',
-	level: 'inline',
+	level: 'inline' as const,
 	start(src: string) {
 		return src.indexOf('$');
 	},
@@ -99,7 +99,7 @@ const MathInline = {
 
 const MathBlock = {
 	name: 'math-block',
-	level: 'inline',
+	level: 'inline' as const,
 	start(src: string) {
 		return src.indexOf('$$');
 	},
@@ -119,7 +119,7 @@ const MathBlock = {
 
 const footnoteRef = {
 	name: 'footnote-ref',
-	level: 'inline',
+	level: 'inline' as const,
 	start(src: string) {
 		return src.indexOf('[^');
 	},
@@ -139,7 +139,7 @@ const footnoteRef = {
 
 const footnote = {
 	name: 'footnote',
-	level: 'block',
+	level: 'block' as const,
 	start(src: string) {
 		return src.match(/^\[\^([^\]]+)\]:/)?.index;
 	},

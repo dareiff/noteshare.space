@@ -154,7 +154,7 @@ prose-blockquote:first:before:content-[''] prose-hr:transition-colors prose-code
 	<!-- footnote container -->
 	{#if footnotes?.length > 0}
 		<hr />
-		<div bind:this={footnoteContainer} />
+		<div bind:this={footnoteContainer}></div>
 	{/if}
 </div>
 
