@@ -12,9 +12,10 @@ RUN npm install -g prisma@latest --omit=dev
 # Copy schema and migration folder
 COPY ./ ./prisma/
 
-# Create non-root user
+# Create non-root user and database directory
 RUN groupadd -r prisma && useradd -r -g prisma prisma && \
-    chown -R prisma:prisma /app
+    mkdir -p /database && \
+    chown -R prisma:prisma /app /database
 
 # Switch to non-root user
 USER prisma
