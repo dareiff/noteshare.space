@@ -1,33 +1,22 @@
-# FROM node:16-alpine AS BUILD_IMAGE
-
-# # install dependencies
-# WORKDIR /app
-# COPY package.json package-lock.json ./
-# RUN npm ci
-
-# # Copy all local files into the image.
-# COPY . .
-# COPY .env.docker .env
-
-# RUN npx prisma generate
-
-# # remove development dependencies
-# RUN npm prune --production
-
-# CMD ["npx", "prisma migrate deploy
-
-FROM node:18-bookworm
-RUN echo $DATABASE_URL
+FROM node:20-bookworm-slim
 
 # Create app directory
 WORKDIR /app
 
-# Install prisma for the migration
-RUN npm install -g prisma --unsafe-perm
-RUN apt update && apt install -y openssl
+# Install openssl for Prisma
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
+# Install prisma CLI globally
+RUN npm install -g prisma@latest --omit=dev
 
 # Copy schema and migration folder
-ADD ./ ./prisma/
+COPY ./ ./prisma/
 
+# Create non-root user
+RUN groupadd -r prisma && useradd -r -g prisma prisma && \
+    chown -R prisma:prisma /app
 
-CMD [ "prisma", "migrate", "deploy"]
+# Switch to non-root user
+USER prisma
+
+CMD ["prisma", "migrate", "deploy"]
