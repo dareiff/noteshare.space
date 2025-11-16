@@ -19,7 +19,6 @@ A clear and concise description of what you expected to happen.
 
 **Screenshots**
 - Provide a screenshot showing what is wrong.
-- If possible, share a note to noteshare.space and put the share link in this bug report so I can further debug the problem.
 
 **Environment (please complete the following information):**
  - OS: [e.g. Windows, MacOS, iOS, Android, ...]

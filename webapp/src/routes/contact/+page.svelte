@@ -19,14 +19,6 @@
 		>.
 	</p>
 
-	<h2>❓ Inquiries about Noteshare.space</h2>
-	<p>
-		For questions and inquiries about Noteshare.space (the "official" note hosting service for the
-		Obsidian QuickShare plugin), please E-mail me at <a href="mailto:contact@noteshare.space"
-			>contact@noteshare.space</a
-		>.
-	</p>
-
 	<h2>💬 Community</h2>
 	<p>
 		If you want a more interactive way to discuss bugs or features, or just want to chat about how

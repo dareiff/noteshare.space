@@ -1,4 +1,3 @@
-import { mdsvex } from 'mdsvex';
 import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
@@ -6,10 +5,7 @@ import preprocess from 'svelte-preprocess';
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: [
-		preprocess({ postcss: true }),
-		mdsvex()
-	],
+	preprocess: preprocess({ postcss: true }),
 	kit: {
 		adapter: adapter(),
 		alias: {
@@ -17,7 +13,7 @@ const config = {
 			'$lib/*': 'src/lib/*'
 		}
 	},
-	extensions: ['.svelte', '.svx']
+	extensions: ['.svelte']
 };
 
 export default config;

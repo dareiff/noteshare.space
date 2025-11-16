@@ -10,7 +10,7 @@ The storage requirements for hosting encrypted text data are incredible small; a
 
 For those who have read [the roadmap](/roadmap), I am working on supporting embedded images and file attachments in a future update. As you can imagine, this greatly increases the storage requirements, as just one attachement has a size in the order of megabytes.
 
-As I develop this feature, I am still deciding on how I will fund this: community donors, tiered access, ... If you have any suggestions, feel free to reach out to me via [email](mailto:contact@noteshare.space) or the [community Discord](https://discord.gg/y3HqyGeABK).
+As I develop this feature, I am still deciding on how I will fund this: community donors, tiered access, ... If you have any suggestions, feel free to reach out to me via the [community Discord](https://discord.gg/y3HqyGeABK).
 
 ## Funding
 

@@ -1,20 +1,14 @@
 # 📝 Noteshare.space
 
-**[Noteshare.space](https://noteshare.space)** is a service for sharing encrypted Markdown notes from Obsidian. Notes are end-to-end-encrypted and are only stored temporarily.
+> **Note:** This is a fork of the [original noteshare.space project](https://github.com/mcndt/noteshare.space), which appears to be no longer actively maintained. This fork primarily focuses on modernization updates, including dependency updates, tooling improvements, and compatibility enhancements.
 
-I created this service largely for my own use, as I was tired of relying on third-party services to quickly share some Markdown notes I wrote in Obsidian. Because I believe that others may find this useful, I chose to make it available as a public service.
+**Noteshare.space** is a service for sharing encrypted Markdown notes from Obsidian. Notes are end-to-end-encrypted and are only stored temporarily.
 
-![Preview of a noteshare.space shared note](/img/preview.png)
+
 
 ## Feedback
 
-The preferred way to report bugs or request new features for the web app or the Obsidian plugin is via the [GitHub issues page](https://github.com/mcndt/noteshare.space/issues/new/choose).
-
-If you want a more interactive way to discuss bugs or features, you can join the [Discord server](https://discord.gg/y3HqyGeABK).
-
-## Funding
-
-By popular request I have written a post about how the public instance of Noteshare is funded: https://noteshare.space/funding
+The preferred way to report bugs or request new features for this fork is via the [GitHub issues page](https://github.com/dareiff/noteshare.space/issues).
 
 ## Local development
 
@@ -79,7 +73,6 @@ The compose configuration will:
 4. Automatically run `prisma migrate deploy` to keep the database schema up-to-date.
 5. Start the storage service and web application after succesfuly database migration.
 
-The docker-compose.yml file is suited for testing on a Windows-based system. If you are running locally on Linux or deploying to a server, you will have to change some of the configuration in the Compose file. See [this thread](https://github.com/mcndt/noteshare.space/issues/15) for more info.
 
 ## Environment variables
 
@@ -104,12 +97,5 @@ The host web server must combine the two services (webapp at port 3000, server a
 
 The reverse proxy is already set up for HTTP in the example docker compose file. some adaptations are still needed to enable TLS.
 
-> [!Warning] Don’t forget to set up TLS!
+> [!Warning] Don't forget to set up TLS!
 > When deploying the application, it is strongly encouraged to run all traffic to the Traefik entrypoint over TLS, e.g. using a self-signed certificate or a cert signed by [letsencrypt](https://letsencrypt.org/).
-
-### Caching
-
-To limit load on the origin server, traffic to `https://noteshare.space/note/*` is proxied through Cloudflare servers. By default, Cloudflare does not cache HTML content.
-
-To enable this, I added a **custom page rule** on `noteshare.space/note/*` to cache all content.
-

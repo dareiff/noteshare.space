@@ -1,22 +1,18 @@
-# create-svelte
+# Noteshare.space Web Application
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+> **Note:** This is part of a fork of the [original noteshare.space project](https://github.com/mcndt/noteshare.space), which appears to be no longer actively maintained. This fork primarily focuses on modernization updates, including dependency updates, tooling improvements, and compatibility enhancements.
 
-## Creating a project
+This is the SvelteKit-based web application for noteshare.space, a service for sharing encrypted Markdown notes from Obsidian.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Development
+
+Install dependencies:
 
 ```bash
-# create a new project in the current directory
-npm init svelte
-
-# create a new project in my-app
-npm init svelte my-app
+npm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start the development server:
 
 ```bash
 npm run dev
@@ -27,7 +23,7 @@ npm run dev -- --open
 
 ## Building
 
-To create a production version of your app:
+To create a production version of the app:
 
 ```bash
 npm run build
@@ -35,4 +31,6 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## More Information
+
+For full setup and deployment instructions, see the [main README](../README.md) in the project root.
