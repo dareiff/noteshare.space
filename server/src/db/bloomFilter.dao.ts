@@ -41,11 +41,11 @@ export async function upsertFilter(
       name: name,
     },
     update: {
-      serializedFilter: serializedFilter,
+      serializedFilter: Uint8Array.from(serializedFilter),
     },
     create: {
       name: name,
-      serializedFilter: serializedFilter,
+      serializedFilter: Uint8Array.from(serializedFilter),
     },
   });
 }
@@ -58,10 +58,11 @@ function serializeFilter(filter: BaseFilter): Buffer {
 }
 
 function deserializeFilter<T extends BaseFilter>(
-  serializedFilter: Buffer,
+  serializedFilter: Uint8Array,
   cls: IDeserializedFilter
 ): T {
-  const filterString = serializedFilter.toString("utf-8");
+  const filterBuffer = Buffer.from(serializedFilter);
+  const filterString = filterBuffer.toString("utf-8");
   const filterJSON = JSON.parse(filterString);
   const filter = cls.fromJSON(filterJSON) as T;
   return filter;

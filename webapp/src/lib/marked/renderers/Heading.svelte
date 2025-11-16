@@ -1,14 +1,8 @@
 <script lang="ts">
-	// import { getContext } from 'svelte';
-	// import {  } from 'svelte-markdown';
 	export let depth: number;
 	export let raw: string;
 
-	// const { slug, getOptions } = getContext(key);
-	// const options = getOptions();
-
 	$: id = undefined;
-	// $: id = options.headerIds ? options.headerPrefix + slug(text) : undefined;
 </script>
 
 <!-- h1-h4 is taken care of by Tailwind Typography plugin. -->
