@@ -9,15 +9,15 @@ export const notesRoute = express.Router();
 const jsonParser = express.json({ limit: "500k" });
 
 const postRateLimit = rateLimit({
-  windowMs: parseFloat(process.env.POST_LIMIT_WINDOW_SECONDS as string) * 1000,
-  max: parseInt(process.env.POST_LIMIT as string), // Limit each IP to X requests per window
+  windowMs: (parseFloat(process.env.POST_LIMIT_WINDOW || "86400") || 86400) * 1000,
+  max: parseInt(process.env.POST_LIMIT || "50") || 50, // Limit each IP to X requests per window
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
 const getRateLimit = rateLimit({
-  windowMs: parseFloat(process.env.GET_LIMIT_WINDOW_SECONDS as string) * 1000,
-  max: parseInt(process.env.GET_LIMIT as string), // Limit each IP to X requests per window
+  windowMs: (parseFloat(process.env.GET_LIMIT_WINDOW || "60") || 60) * 1000,
+  max: parseInt(process.env.GET_LIMIT || "20") || 20, // Limit each IP to X requests per window
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
