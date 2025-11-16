@@ -1,27 +1,46 @@
-FROM node:18-bookworm AS BUILD_IMAGE
+FROM node:20-bookworm-slim AS BUILD_IMAGE
 
-# install dependencies
+# Install dependencies
 WORKDIR /app
-RUN apt update && apt install -y openssl
-COPY package.json package-lock.json ./
-RUN npm ci
 
-# Copy all local files into the image.
+# Install openssl for Prisma
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
+# Copy package files
+COPY package.json package-lock.json ./
+RUN npm ci --prefer-offline --no-audit
+
+# Copy source files
 COPY . .
 
+# Generate Prisma client and build
 RUN npx prisma generate
-
 RUN npm run build
 
-# # remove development dependencies
-# RUN npm prune --production
+# Remove development dependencies
+RUN npm prune --production
 
-FROM node:18-bookworm
+# Production stage
+FROM node:20-bookworm-slim
 
 WORKDIR /app
-COPY --from=0 /app .
 
-ENV PORT 8080
+# Install openssl for Prisma runtime
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN groupadd -r nodejs && useradd -r -g nodejs nodejs
+
+# Copy built application from build stage
+COPY --from=BUILD_IMAGE --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --from=BUILD_IMAGE --chown=nodejs:nodejs /app/build ./build
+COPY --from=BUILD_IMAGE --chown=nodejs:nodejs /app/package.json ./package.json
+
+# Switch to non-root user
+USER nodejs
+
+ENV PORT=8080
+ENV NODE_ENV=production
 EXPOSE 8080
 
 CMD ["node", "./build/src/server.js"]
