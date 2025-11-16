@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let text: string;
 </script>
 
-<span class="bg-[#ffff00]/[0.4]"><slot /></span>
+<span class="`bg-[#ffff00]/40"><slot /></span>

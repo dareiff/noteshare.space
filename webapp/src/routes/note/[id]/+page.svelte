@@ -7,7 +7,6 @@
 	import { browser } from '$app/environment';
 	import RawRenderer from '$lib/components/RawRenderer.svelte';
 	import LogoDocument from 'svelte-icons/md/MdUndo.svelte';
-	import Dismissable from '$lib/components/Dismissable.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -77,8 +76,6 @@
 
 {#if plaintext}
 	<div class="max-w-2xl mx-auto">
-		<Dismissable />
-
 		<p
 			class="mb-4 text-sm flex gap-2 flex-col md:gap-0 md:flex-row justify-between text-zinc-500 dark:text-zinc-400"
 		>
