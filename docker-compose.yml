@@ -1,5 +1,5 @@
 services:
-  # Prisma sqlite migration utility 
+  # Prisma sqlite migration utility
   migrate:
     build:
       context: ./server/prisma
@@ -8,14 +8,17 @@ services:
       - sqlite:/database/
     environment:
       - DATABASE_URL=file:/database/db.sqlite
-  
-  # Backend server for managing saved notes 
+
+  # Backend server for managing saved notes
   backend:
-    build: 
+    container_name: notesharebackend
+    build:
       context: ./server
       dockerfile: Dockerfile
     volumes:
       - sqlite:/database/
+    ports:
+      - 8080:8080
     environment:
       - DATABASE_URL=file:/database/db.sqlite
       - FRONTEND_URL=https://go.derekr.xyz
@@ -34,17 +37,20 @@ services:
 
   # Frontend for serving encrypted notes over HTML (SvelteKit)
   frontend:
-    build: 
+    container_name: notesharefrontend
+    build:
       context: ./webapp
       dockerfile: Dockerfile
       args:
-        - VITE_SERVER_INTERNAL=http://backend:8080
+        - VITE_SERVER_INTERNAL=https://go.derekr.xyz
         - VITE_BRANDING=go.derekr.xyz
     environment:
-        - NODE_ENV=production
+      - NODE_ENV=production
     depends_on:
       - backend
     restart: unless-stopped
+    ports:
+      - 3000:3000
 
 volumes:
   sqlite:
