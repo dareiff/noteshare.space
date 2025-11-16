@@ -28,8 +28,8 @@ WORKDIR /app
 # Install openssl for Prisma runtime
 RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
-# Create non-root user
-RUN groupadd -r nodejs && useradd -r -g nodejs nodejs
+# Create non-root user with specific UID/GID to match migration container
+RUN groupadd -r nodejs -g 1001 && useradd -r -g nodejs -u 1001 nodejs
 
 # Copy built application from build stage
 COPY --from=BUILD_IMAGE --chown=nodejs:nodejs /app/node_modules ./node_modules
