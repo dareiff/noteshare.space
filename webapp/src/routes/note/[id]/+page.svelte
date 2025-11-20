@@ -75,7 +75,7 @@
 </svelte:head>
 
 {#if plaintext}
-	<div class="max-w-2xl mx-auto">
+	<div class="max-w-2xl mx-auto pb-16">
 		<p
 			class="mb-4 text-sm flex gap-2 flex-col md:gap-0 md:flex-row justify-between text-zinc-500 dark:text-zinc-400"
 		>
